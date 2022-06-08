@@ -7,7 +7,7 @@ from pkg_resources import packaging
 
 import torch
 from PIL import Image
-from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize
+from torchvision.transforms import Compose, Resize, CenterCrop, ToTensor, Normalize, ToPILImage
 from tqdm import tqdm
 
 from .model import build_model
@@ -78,6 +78,7 @@ def _convert_image_to_rgb(image):
 
 def _transform(n_px):
     return Compose([
+        ToPILImage(),
         Resize(n_px, interpolation=BICUBIC),
         CenterCrop(n_px),
         _convert_image_to_rgb,
